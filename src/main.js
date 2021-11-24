@@ -7,7 +7,7 @@ import {renderTemplate, RenderPosition} from './render.js';
 
 const siteHeaderElement = document.querySelector('.header');
 renderTemplate(siteHeaderElement, createAvatarTemplate(), RenderPosition.BEFOREEND);
-const siteMainElement = document.querySelector('.main')
+const siteMainElement = document.querySelector('.main');
 renderTemplate(siteMainElement, createNavigationTemplate(), RenderPosition.BEFOREEND);
 const navigationBlock = siteMainElement.querySelector('.main-navigation');
 renderTemplate(navigationBlock, createNavigationItemsTemplate(), RenderPosition.BEFOREEND);
