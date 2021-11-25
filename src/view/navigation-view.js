@@ -1,4 +1,4 @@
 export const createNavigationTemplate = () => (
-  `<nav class="main-navigation">
-  </nav>`
+  `<nav class="main-navigation"></nav>
+  `
 );
