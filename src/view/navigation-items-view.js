@@ -5,5 +5,4 @@ export const createNavigationItemsTemplate = () => (
     <a href="#history" class="main-navigation__item">History <span class="main-navigation__item-count">4</span></a>
     <a href="#favorites" class="main-navigation__item">Favorites <span class="main-navigation__item-count">8</span></a>
   </div>`
-  
 );
