@@ -1,8 +1,9 @@
+import {createElement} from '../render.js';
 import dayjs from 'dayjs';
 import {timeStempDuration} from '../utils';
 const LENGTH_DESCRIPTION = 140;
 
-export const createFilmCardTemplate = (movie) => {
+const createFilmCardTemplate = (movie) => {
   const  {title, poster,totalRating, runtime, description, genre} = movie.filmInfo;
   const  {alreadyWatched, favorite, watchlist} = movie.userDetails;
   const duration = timeStempDuration(runtime);
@@ -29,3 +30,25 @@ export const createFilmCardTemplate = (movie) => {
     </div>
   </article>`;
 };
+export default class FilmCardView {
+  #element = null;
+  #movie = null;
+  constructor(movie) {
+    this.#movie = movie;
+  }
+
+  get element() {
+    if(!this.#element) {
+      this.#element = createElement(this.template);
+    }
+    return this.#element;
+  }
+
+  get template() {
+    return createFilmCardTemplate(this.#movie);
+  }
+
+  removeElement() {
+    this.#element = null;
+  }
+}

@@ -1,10 +1,11 @@
+import {createElement} from '../render.js';
 import dayjs from 'dayjs';
 import {timeStempDuration} from '../utils';
 const createGenre = (genre) => {
   const res = genre.map((el)=> (`<span class="film-details__genre">${el}</span>`));
   return res.join(' ');
 };
-export const createDetailsTopContentTemplate = (movie) =>  {
+const createDetailsTopContentTemplate = (movie) =>  {
   const  {title, poster, ageRating, director, release, actors, writers, totalRating, runtime, description, genre, alternativeTitle} = movie.filmInfo;
   const runtimeDate = timeStempDuration(runtime);
   return`<div class="film-details__top-container">
@@ -67,3 +68,25 @@ export const createDetailsTopContentTemplate = (movie) =>  {
     </div>
   </div>`;
 };
+export default class DetailsTopContent {
+  #element = null;
+  #movie = null;
+  constructor(movie) {
+    this.#movie = movie;
+  }
+
+  get element() {
+    if(!this.#element) {
+      this.#element = createElement(this.template);
+    }
+    return this.#element;
+  }
+
+  get template() {
+    return createDetailsTopContentTemplate(this.#movie);
+  }
+
+  removeElement() {
+    this.#element = null;
+  }
+}

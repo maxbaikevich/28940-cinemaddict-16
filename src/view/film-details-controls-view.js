@@ -1,12 +1,11 @@
 import {createElement} from '../render.js';
-const createStatusTemplate = () => (
-  `<a href="#stats" class="main-navigation__additional">
-    Stats
-  </a>`
+const createDetailsControlsTemplate = () => (
+  `<section class="film-details__controls"></section>
+  `
 );
-export default class StatsView {
+export default class DetailsControlsView {
   #element = null;
-  get element () {
+  get element() {
     if(!this.#element) {
       this.#element = createElement(this.template);
     }
@@ -14,7 +13,7 @@ export default class StatsView {
   }
 
   get template() {
-    return createStatusTemplate();
+    return createDetailsControlsTemplate();
   }
 
   removeElement() {

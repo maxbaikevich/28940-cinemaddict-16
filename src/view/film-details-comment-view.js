@@ -1,5 +1,6 @@
+import { createElement } from '../render';
 import dayjs from 'dayjs';
-export const createFilmDetailsCommentTemplate = (commentData) => {
+const createFilmDetailsCommentTemplate = (commentData) => {
   const {emotion, comment, author, date} = commentData;
   return `<li class="film-details__comment">
     <span class="film-details__comment-emoji">
@@ -15,3 +16,25 @@ export const createFilmDetailsCommentTemplate = (commentData) => {
     </div>
   </li>`;
 };
+export default class FilmDetailsCommentView {
+  #element = null;
+  #commentData = null;
+  constructor(commentData) {
+    this.#commentData = commentData;
+  }
+
+  get element() {
+    if(!this.#element) {
+      this.#element = createElement(this.template);
+    }
+    return this.#element;
+  }
+
+  get template() {
+    return createFilmDetailsCommentTemplate(this.#commentData);
+  }
+
+  removeElement() {
+    this.#element = null;
+  }
+}
