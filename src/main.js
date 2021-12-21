@@ -21,6 +21,7 @@ import FilmDetailsCommentListView from './view/film-details-comments-list-view';
 import NewCommentView from './view/film-details-new-comment-view';
 import ControlBtnView from './view/film-details-content-btn-view';
 import CommentEmojiView from './view/film-details-comment-emoji-view';
+import ListTitleEmpty from './view/list-empty';
 import {generateMovie} from './mock/movie';
 import {createComments} from './utils';
 import {generateFilter} from './utils';
@@ -83,6 +84,7 @@ const renderPopUp = (bodyElement, topContent, moviedata) => {
 const renderFilmCard = (filmsListContainer, movieData) => {
   const movieComponent = new FilmCardView(movieData);
   const bodyElement = document.querySelector('body');
+
   const topContent = new DetailsTopContent(movieData);
   renderElement(filmsListContainer, movieComponent.element, RenderPosition.BEFOREEND);
   movieComponent.element.querySelector('.film-card__poster').addEventListener('click', ()=> {
@@ -104,7 +106,7 @@ renderElement(siteMainElement, new NavigationView().element, RenderPosition.BEFO
 const navigationBlock = siteMainElement.querySelector('.main-navigation');
 renderElement(navigationBlock, new NavigationItemsView(filterDate).element, RenderPosition.BEFOREEND);
 renderElement(navigationBlock, new StatsView().element, RenderPosition.BEFOREEND);
-renderElement(siteMainElement, new SortView().element, RenderPosition.BEFOREEND);
+renderElement(siteMainElement, movie.length ? new SortView().element : new ListTitleEmpty().element, RenderPosition.BEFOREEND);
 renderElement(siteMainElement, new FilmView().element, RenderPosition.BEFOREEND);
 const siteFilmslist = siteMainElement.querySelector('.films-list');
 renderElement(siteFilmslist, new FilmListView().element, RenderPosition.BEFOREEND);
@@ -129,9 +131,13 @@ if(movie.length > MOVIE_COUNT_PER_STEP) {
     }
   });
 }
+
 const siteFilms = siteMainElement.querySelector('.films');
-renderElement(siteFilms, new TopRatedView().element, RenderPosition.BEFOREEND);
-renderElement(siteFilms, new MostComment().element, RenderPosition.BEFOREEND);
+if(movie.length) {
+  renderElement(siteFilms, new TopRatedView().element, RenderPosition.BEFOREEND);
+  renderElement(siteFilms, new MostComment().element, RenderPosition.BEFOREEND);
+}
+
 const filmsListExtra = siteFilms.querySelectorAll('.films-list--extra');
 for(const element of filmsListExtra ) {
   const extraContainer = element.querySelector('.films-list__container');
