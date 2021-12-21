@@ -1,4 +1,4 @@
-import {createElement} from '../render.js';
+import AbstractView from './abstract-view.js';
 const createNavigationItemTemplateElem = (filterDate, isChecked) => {
   const {name, count} = filterDate;
   return (
@@ -11,25 +11,14 @@ const createNavigationItemsTemplate = (filterDate) => {
     .join('');
   return `<div class="main-navigation__items">${navigationItemTemplate}</div>`;
 };
-export default class NavigationItemsView {
-  #element = null;
+export default class NavigationItemsView extends AbstractView {
   #filterDate = null;
   constructor(filterDate) {
+    super();
     this.#filterDate = filterDate;
-  }
-
-  get element() {
-    if(!this.#element) {
-      this.#element = createElement(this.template);
-    }
-    return this.#element;
   }
 
   get template() {
     return createNavigationItemsTemplate( this.#filterDate);
-  }
-
-  removeElement() {
-    this.#element = null;
   }
 }
