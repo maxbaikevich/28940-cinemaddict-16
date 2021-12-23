@@ -1,4 +1,4 @@
-import { createElement } from '../render';
+import AbstractView from './abstract-view';
 const createNewCommentTemplate = () => (
   `<div class="film-details__new-comment">
     <div class="film-details__add-emoji-label"></div>
@@ -11,20 +11,8 @@ const createNewCommentTemplate = () => (
     </div>
   </div>`
 );
-export default class NewCommentView {
-  #element = null;
-  get element() {
-    if(!this.#element) {
-      this.#element = createElement(this.template);
-    }
-    return this.#element;
-  }
-
+export default class NewCommentView extends AbstractView {
   get template() {
     return createNewCommentTemplate();
-  }
-
-  removeElement() {
-    this.#element = null;
   }
 }

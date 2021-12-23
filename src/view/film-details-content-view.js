@@ -1,4 +1,4 @@
-import {createElement} from '../render.js';
+import AbstractView from './abstract-view';
 import dayjs from 'dayjs';
 import {timeStempDuration} from '../utils';
 const createGenre = (genre) => {
@@ -68,25 +68,24 @@ const createDetailsTopContentTemplate = (movie) =>  {
     </div>
   </div>`;
 };
-export default class DetailsTopContent {
-  #element = null;
+export default class DetailsTopContent extends AbstractView {
   #movie = null;
   constructor(movie) {
+    super();
     this.#movie = movie;
-  }
-
-  get element() {
-    if(!this.#element) {
-      this.#element = createElement(this.template);
-    }
-    return this.#element;
   }
 
   get template() {
     return createDetailsTopContentTemplate(this.#movie);
   }
 
-  removeElement() {
-    this.#element = null;
+  setClickCloseHandler = (callback) => {
+    this._callback.click = callback;
+    this.element.querySelector('.film-details__close-btn').addEventListener('click', this.#clickHandler);
+  }
+
+  #clickHandler = (evt) => {
+    evt.preventDefault();
+    this._callback.click();
   }
 }

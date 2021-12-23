@@ -1,4 +1,4 @@
-import { createElement } from '../render';
+import AbstractView from './abstract-view';
 import dayjs from 'dayjs';
 const createFilmDetailsCommentTemplate = (commentData) => {
   const {emotion, comment, author, date} = commentData;
@@ -16,25 +16,14 @@ const createFilmDetailsCommentTemplate = (commentData) => {
     </div>
   </li>`;
 };
-export default class FilmDetailsCommentView {
-  #element = null;
+export default class FilmDetailsCommentView extends AbstractView {
   #commentData = null;
   constructor(commentData) {
+    super();
     this.#commentData = commentData;
-  }
-
-  get element() {
-    if(!this.#element) {
-      this.#element = createElement(this.template);
-    }
-    return this.#element;
   }
 
   get template() {
     return createFilmDetailsCommentTemplate(this.#commentData);
-  }
-
-  removeElement() {
-    this.#element = null;
   }
 }
