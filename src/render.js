@@ -24,6 +24,23 @@ export const renderElement = (container, element, place) => {
       break;
   }
 };
+export const replace = (newChild, oldChild) => {
+  if (oldChild instanceof AbstractView) {
+    oldChild = oldChild.element;
+  }
+
+  if (newChild instanceof AbstractView) {
+    newChild = newChild.element;
+  }
+
+  const parent = oldChild.parentElement;
+
+  if (parent === null || oldChild === null || newChild === null) {
+    throw new Error('Can\'t replace unexisting elements');
+  }
+
+  parent.replaceChild(newChild, oldChild);
+};
 export const createElement = (template) => {
   const newElement = document.createElement('div'); // 1
   newElement.innerHTML = template; // 2
@@ -43,3 +60,10 @@ export const remove = (component) => {
   component.element.remove();
   component.removeElement();
 };
+const sortByRating = (prev, next) => Number(next.filmInfo.totalRating) - Number(prev.filmInfo.totalRating);
+
+const sortByNumberComment = (prev, next) => next.comments.length - prev.comments.length;
+
+export const selectRatedFilms = (items) => items.slice().sort(sortByRating);
+
+export const selectCommentFilm = (items) => items.slice().sort(sortByNumberComment);
