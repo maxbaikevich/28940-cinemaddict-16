@@ -9,4 +9,12 @@ export default class MostComment extends AbstractView{
   get template() {
     return createMostCommentTemplate();
   }
+
+  get container() {
+    return this.element.querySelector('.films-list__container');
+  }
+
+  isEmptyContainer() {
+    return this.element.querySelector('.films-list__container').childElementCount === 0;
+  }
 }
